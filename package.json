@@ -1,0 +1,70 @@
+{
+  "name": "run-through-pandoc",
+	"displayName": "Run through Pandoc",
+	"description": "desc here",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.64.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:run-through-pandoc.markdownToMediawiki"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "run-through-pandoc.markdownToJira",
+				"title": "Run through Pandoc to convert from Markdown to Jira"
+			},
+			{
+				"command": "run-through-pandoc.markdownToMediawiki",
+				"title": "Run through Pandoc to convert from Markdown to Mediawiki"
+			},
+			{
+				"command": "run-through-pandoc.markdownToTextile",
+				"title": "Run through Pandoc to convert from Markdown to Textile"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "run-through-pandoc.markdownToJira",
+				"key": "alt+shift+p j",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "run-through-pandoc.markdownToMediawiki",
+				"key": "alt+shift+p w",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "run-through-pandoc.markdownToTextile",
+				"key": "alt+shift+p t",
+				"when": "editorTextFocus"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.64.0",
+		"@types/glob": "^7.2.0",
+		"@types/mocha": "^9.1.0",
+		"@types/node": "14.x",
+		"@typescript-eslint/eslint-plugin": "^5.12.1",
+		"@typescript-eslint/parser": "^5.12.1",
+		"eslint": "^8.9.0",
+		"glob": "^7.2.0",
+		"mocha": "^9.2.1",
+		"typescript": "^4.5.5",
+		"@vscode/test-electron": "^2.1.2"
+	}
+}
