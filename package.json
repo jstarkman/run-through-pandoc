@@ -10,7 +10,9 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:run-through-pandoc.markdownToMediawiki"
+		"onCommand:run-through-pandoc.markdownToJira",
+		"onCommand:run-through-pandoc.markdownToMediawiki",
+		"onCommand:run-through-pandoc.markdownToTextile"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -26,6 +28,14 @@
 			{
 				"command": "run-through-pandoc.markdownToTextile",
 				"title": "Run through Pandoc to convert from Markdown to Textile"
+			},
+			{
+				"command": "run-through-pandoc.prompt",
+				"title": "Run through Pandoc and specify the input and output formats"
+			},
+			{
+				"command": "run-through-pandoc.promptFromMarkdown",
+				"title": "Run through Pandoc and specify the output format only (assumes Markdown input)"
 			}
 		],
 		"keybindings": [
@@ -42,6 +52,16 @@
 			{
 				"command": "run-through-pandoc.markdownToTextile",
 				"key": "alt+shift+p t",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "run-through-pandoc.prompt",
+				"key": "alt+shift+p p",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "run-through-pandoc.promptFromMarkdown",
+				"key": "alt+shift+p m",
 				"when": "editorTextFocus"
 			}
 		]
