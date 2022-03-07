@@ -7,6 +7,9 @@
 		"vscode": "^1.64.0"
 	},
 	"license": "GPL-3.0-or-later",
+	"repository": {
+		"url": "https://github.com/jstarkman/run-through-pandoc/"
+	},
 	"categories": [
 		"Formatters"
 	],
@@ -83,9 +86,7 @@
 		"vscode:prepublish": "npm run compile",
 		"compile": "tsc -p ./",
 		"watch": "tsc -watch -p ./",
-		"pretest": "npm run compile && npm run lint",
-		"lint": "eslint src --ext ts",
-		"test": "node ./out/test/runTest.js"
+		"lint": "eslint src --ext ts"
 	},
 	"devDependencies": {
 		"@types/vscode": "^1.64.0",
@@ -97,7 +98,6 @@
 		"eslint": "^8.9.0",
 		"glob": "^7.2.0",
 		"mocha": "^9.2.1",
-		"typescript": "^4.5.5",
-		"@vscode/test-electron": "^2.1.2"
+		"typescript": "^4.5.5"
 	}
 }
