@@ -14,6 +14,7 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposables = [
 		vscode.commands.registerCommand('run-through-pandoc.markdownToJira', () => replaceActiveRegion('markdown', 'jira')),
 		vscode.commands.registerCommand('run-through-pandoc.markdownToMediawiki', () => replaceActiveRegion('markdown', 'mediawiki')),
+		vscode.commands.registerCommand('run-through-pandoc.markdownToRestructuredtext', () => replaceActiveRegion('markdown', 'rst')),
 		vscode.commands.registerCommand('run-through-pandoc.markdownToTextile', () => replaceActiveRegion('markdown', 'textile')),
 		vscode.commands.registerCommand('run-through-pandoc.prompt', prompt),
 		vscode.commands.registerCommand('run-through-pandoc.promptFromMarkdown', promptFromMarkdown),

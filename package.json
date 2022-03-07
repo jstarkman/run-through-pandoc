@@ -26,6 +26,10 @@
 				"title": "Run through Pandoc to convert from Markdown to Mediawiki"
 			},
 			{
+				"command": "run-through-pandoc.markdownToRestructuredtext",
+				"title": "Run through Pandoc to convert from Markdown to ReStructured Text"
+			},
+			{
 				"command": "run-through-pandoc.markdownToTextile",
 				"title": "Run through Pandoc to convert from Markdown to Textile"
 			},
@@ -47,6 +51,11 @@
 			{
 				"command": "run-through-pandoc.markdownToMediawiki",
 				"key": "alt+shift+p w",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "run-through-pandoc.markdownToRestructuredtext",
+				"key": "alt+shift+p r",
 				"when": "editorTextFocus"
 			},
 			{
