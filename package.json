@@ -1,18 +1,22 @@
 {
   "name": "run-through-pandoc",
 	"displayName": "Run through Pandoc",
-	"description": "desc here",
+	"description": "Tool for converting markup formats of text regions without leaving VSCode; this avoids the need for manually arrowing a heredoc into `pandoc`.",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.64.0"
 	},
+	"license": "GPL-3.0-or-later",
 	"categories": [
-		"Other"
+		"Formatters"
 	],
 	"activationEvents": [
 		"onCommand:run-through-pandoc.markdownToJira",
 		"onCommand:run-through-pandoc.markdownToMediawiki",
-		"onCommand:run-through-pandoc.markdownToTextile"
+		"onCommand:run-through-pandoc.markdownToRestructuredtext",
+		"onCommand:run-through-pandoc.markdownToTextile",
+		"onCommand:run-through-pandoc.prompt",
+		"onCommand:run-through-pandoc.promptFromMarkdown"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
