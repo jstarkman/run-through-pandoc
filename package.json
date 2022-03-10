@@ -2,7 +2,7 @@
   "name": "run-through-pandoc",
 	"displayName": "Run through Pandoc",
 	"description": "Tool for converting markup formats of text regions without leaving VSCode; this avoids the need for manually arrowing a heredoc into `pandoc`.",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"engines": {
 		"vscode": "^1.64.0"
 	},
@@ -23,6 +23,16 @@
 	],
 	"main": "./out/extension.js",
 	"contributes": {
+		"configuration": {
+			"title": "run-through-pandoc",
+			"properties": {
+				"run-through-pandoc.pandocPath": {
+					"type": ["string", "null"],
+					"default": null,
+					"description": "Path to the `pandoc` binary or `null` to search the system PATH."
+				}
+			}
+		},
 		"commands": [
 			{
 				"command": "run-through-pandoc.markdownToJira",

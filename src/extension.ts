@@ -4,26 +4,28 @@ import * as child_process from 'child_process';
 var supportedInputFormats: string[] = [];
 var supportedOutputFormats: string[] = [];
 
-export function activate(context: vscode.ExtensionContext) {
-	shellOut('command', ['-v', 'pandoc'])
-		.catch(() => vscode.window.showErrorMessage('Could not find `pandoc` on the system path.  Please install it and restart the extension.'));
+export async function activate(context: vscode.ExtensionContext) {
+	const wsConf = vscode.workspace.getConfiguration('run-through-pandoc');
+	const pandoc: string = wsConf.get("run-through-pandoc.pandocPath") || 'pandoc';
+
+	try {
+		await shellOut('command', ['-v', pandoc]);
+	} catch (_error) {
+		vscode.window.showErrorMessage(`Could not find '${pandoc}'.  Please install it, configure the extension via 'run-through-pandoc.pandocPath', and restart the extension.`);
+		return;
+	}
 
 	initSupportedFormats();
 	console.log('This Pandoc supports:', supportedInputFormats, supportedOutputFormats);
 
-	let disposables = [
+	[
 		vscode.commands.registerCommand('run-through-pandoc.markdownToJira', () => replaceActiveRegion('markdown', 'jira')),
 		vscode.commands.registerCommand('run-through-pandoc.markdownToMediawiki', () => replaceActiveRegion('markdown', 'mediawiki')),
 		vscode.commands.registerCommand('run-through-pandoc.markdownToRestructuredtext', () => replaceActiveRegion('markdown', 'rst')),
 		vscode.commands.registerCommand('run-through-pandoc.markdownToTextile', () => replaceActiveRegion('markdown', 'textile')),
 		vscode.commands.registerCommand('run-through-pandoc.prompt', prompt),
 		vscode.commands.registerCommand('run-through-pandoc.promptFromMarkdown', promptFromMarkdown),
-	];
-
-	for (var disp in disposables) {
-		var disposable = disposables[disp];
-		context.subscriptions.push(disposable);
-	}
+	].forEach(disposable => context.subscriptions.push(disposable));
 }
 
 async function prompt() {
@@ -52,9 +54,7 @@ async function replaceActiveRegion(formatFrom: string, formatTo: string) {
 	if (region.isEmpty) return;
 	const text = document.getText(region);
 	const newText = await pandoc(formatFrom, formatTo, text);
-	editor.edit(editBuilder => {
-		editBuilder.replace(region, newText);
-	});
+	editor.edit(editBuilder => editBuilder.replace(region, newText));
 }
 
 async function pandoc(formatFrom: string, formatTo: string, input: string): Promise<string> {
