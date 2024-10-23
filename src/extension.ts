@@ -52,12 +52,12 @@ async function promptFromMarkdown() {
 }
 
 async function replaceActiveRegion(formatFrom: string, formatTo: string) {
-	console.debug(`Converting from ${formatFrom} to ${formatTo}.`)
+	console.debug(`Converting from ${formatFrom} to ${formatTo}.`);
 	const editor = vscode.window.activeTextEditor;
-	if (!editor) return;
+	if (!editor) { return; }
 	const document = editor.document;
 	const region = editor.selections[0];
-	if (region.isEmpty) return;
+	if (region.isEmpty) { return; }
 	const text = document.getText(region);
 	const newText = await pandoc(formatFrom, formatTo, text);
 	editor.edit(editBuilder => editBuilder.replace(region, newText));
