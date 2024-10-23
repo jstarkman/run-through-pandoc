@@ -15,6 +15,9 @@ This extension is under development.  All releases are "pre-alpha" grade.
 
 ## Release Notes
 
+### 0.0.3
+Added Windows support; updated dependencies.
+
 ### 0.0.2
 Added the `pandocPath` extension setting.
 
