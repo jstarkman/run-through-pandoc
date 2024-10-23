@@ -3,15 +3,21 @@ import * as child_process from 'child_process';
 
 var supportedInputFormats: string[] = [];
 var supportedOutputFormats: string[] = [];
+var pandocPath: string = "";
 
 export async function activate(context: vscode.ExtensionContext) {
 	const wsConf = vscode.workspace.getConfiguration('run-through-pandoc');
-	const pandoc: string = wsConf.get("run-through-pandoc.pandocPath") || 'pandoc';
+	pandocPath = wsConf.get("run-through-pandoc.pandocPath") || 'pandoc';
+	const isWindows = process.platform === 'win32';
 
 	try {
-		await shellOut('command', ['-v', pandoc]);
+		if (isWindows) {
+			await shellOut('where.exe', [pandocPath]);
+		} else {
+			await shellOut('command', ['-v', pandocPath]);
+		}
 	} catch (_error) {
-		vscode.window.showErrorMessage(`Could not find '${pandoc}'.  Please install it, configure the extension via 'run-through-pandoc.pandocPath', and restart the extension.`);
+		vscode.window.showErrorMessage(`Could not find '${pandocPath}'.  Please install it, configure the extension via 'run-through-pandoc.pandocPath', and restart the extension.`);
 		return;
 	}
 
@@ -58,19 +64,19 @@ async function replaceActiveRegion(formatFrom: string, formatTo: string) {
 }
 
 async function pandoc(formatFrom: string, formatTo: string, input: string): Promise<string> {
-	return shellOut('pandoc', [
+	return shellOut(pandocPath, [
 		'--from=' + formatFrom,
 		'--to=' + formatTo
 	], () => input);
 }
 
 async function initSupportedFormats() {
-	const tx = (await shellOut('pandoc', ['--list-input-formats']))
+	const tx = (await shellOut(pandocPath, ['--list-input-formats']))
 		.split("\n")
 		.map(s => s && s.trim() || '')
 		.filter(x => !!x);
 	supportedInputFormats = tx;
-	const rx = (await shellOut('pandoc', ['--list-output-formats']))
+	const rx = (await shellOut(pandocPath, ['--list-output-formats']))
 		.split("\n")
 		.map(s => s && s.trim() || '')
 		.filter(x => !!x);
